@@ -44,12 +44,13 @@ public class Busca {
 	}
 
 	private void expandirNos(No no) {
-		// TODO Verificar ações possiveis -> expandir nos -> verificar qual o melhor -> inserir na fila
 		List<Movimento> acoes = new Acao().getAcoesPossiveis(no.estado);
 		List<No> nosPossiveis = new ArrayList<>();
 		
 		for (Movimento acao : acoes) {
 			nosPossiveis.add(acao.mover(no));
 		}
+		
+		nos.add(No.getMelhorNo(nosPossiveis));
 	}
 }
