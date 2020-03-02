@@ -6,11 +6,11 @@ package sliding_puzzle_IA;
  *
  */
 public class Peca {
-	int posicaoAtualX;
-	int posicaoAtualY;
-	int posicaoFinalX;
-	int posicaoFinalY;
-	int distancia;
+	public int posicaoAtualX;
+	public int posicaoAtualY;
+	public int posicaoFinalX;
+	public int posicaoFinalY;
+	public int distancia;
 	
 	public Peca(int posicaoAtualX, int posicaoAtualY, int posicaoFinalX, int posicaoFinalY) {
 		super();
@@ -19,6 +19,10 @@ public class Peca {
 		this.posicaoFinalX = posicaoFinalX;
 		this.posicaoFinalY = posicaoFinalY;
 		this.distancia = getDistancia();
+	}
+	
+	public static Peca getPecaVazia(int posicaoX, int posicaoY) {
+		return new Peca(posicaoY, posicaoY, posicaoX, posicaoY);
 	}
 	
 	/**

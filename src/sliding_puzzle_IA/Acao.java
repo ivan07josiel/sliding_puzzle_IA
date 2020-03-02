@@ -3,6 +3,12 @@ package sliding_puzzle_IA;
 import java.util.ArrayList;
 import java.util.List;
 
+import movimentos.Movimento;
+import movimentos.MovimentoBaixo;
+import movimentos.MovimentoCima;
+import movimentos.MovimentoDireita;
+import movimentos.MovimentoEsquerda;
+
 /**
  * Classe para representação dos movimentos de uma peça no jogo
  * 
@@ -17,17 +23,21 @@ public class Acao {
 
 	Peca pecaMovimentada;
 
-	public List<Integer> getAcoesPossiveis(Estado estado) {
-		List<Integer> movimentos = new ArrayList<>();
+	public static No realizarMovimento(No no, Movimento movimento) {
+		return movimento.mover(no);
+	}
+	
+	public List<Movimento> getAcoesPossiveis(Estado estado) {
+		List<Movimento> movimentos = new ArrayList<>();
 
 		if (isPermitidoMovimento(MOVER_PARA_CIMA, estado))
-			movimentos.add(MOVER_PARA_CIMA);
+			movimentos.add(new MovimentoCima());
 		if (isPermitidoMovimento(MOVER_PARA_BAIXO, estado))
-			movimentos.add(MOVER_PARA_BAIXO);
+			movimentos.add(new MovimentoBaixo());
 		if (isPermitidoMovimento(MOVER_PARA_ESQUERDA, estado))
-			movimentos.add(MOVER_PARA_ESQUERDA);
+			movimentos.add(new MovimentoEsquerda());
 		if (isPermitidoMovimento(MOVER_PARA_DIREITA, estado))
-			movimentos.add(MOVER_PARA_DIREITA);
+			movimentos.add(new MovimentoDireita());
 
 		return movimentos;
 	}
