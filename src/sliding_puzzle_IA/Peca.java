@@ -6,47 +6,48 @@ package sliding_puzzle_IA;
  *
  */
 public class Peca {
-	public int posicaoAtualX;
-	public int posicaoAtualY;
 	public int posicaoFinalX;
 	public int posicaoFinalY;
 	public int distancia;
+	public Integer numero;
 	
-	public Peca(int posicaoAtualX, int posicaoAtualY, int posicaoFinalX, int posicaoFinalY) {
+	public Peca(int posicaoFinalX, int posicaoFinalY, Integer numero) {
 		super();
-		this.posicaoAtualX = posicaoAtualX;
-		this.posicaoAtualY = posicaoAtualY;
 		this.posicaoFinalX = posicaoFinalX;
 		this.posicaoFinalY = posicaoFinalY;
-		this.distancia = getDistancia();
+		this.numero = numero;
 	}
 	
 	public static Peca getPecaVazia(int posicaoX, int posicaoY) {
-		return new Peca(posicaoY, posicaoY, posicaoX, posicaoY);
+		return new Peca(posicaoX, posicaoY, null);
+	}
+	
+	public void setDistancia(int posAtualX, int posAtualY) {
+		this.distancia = getDistancia(posAtualX, posAtualY);
 	}
 	
 	/**
 	 * Retorna a distancia manhattan entre a posição atual e a posição final da peça
 	 */
-	public int getDistancia() {
-		return getDistanciaManhattan();
+	public int getDistancia(int posAtualX, int posAtualY) {
+		return getDistanciaManhattan(posAtualX, posAtualY);
 	}
 
-	private int getDistanciaManhattan() {
-		return projecaoLinhaX() + projecaoLinhaY();
+	private int getDistanciaManhattan(int posAtualX, int posAtualY) {
+		return projecaoLinhaX(posAtualX) + projecaoLinhaY(posAtualY);
 	}
 	
 	/**
 	 * Retorna o comprimento da projecção da linha no eixo X
 	 */
-	private int projecaoLinhaX() {
+	private int projecaoLinhaX(int posicaoAtualX) {
 		return Math.abs(posicaoFinalX - posicaoAtualX);
 	}
 	
 	/**
 	 * Retorna o comprimento da projecção da linha no eixo Y
 	 */
-	private int projecaoLinhaY() {
+	private int projecaoLinhaY(int posicaoAtualY) {
 		return Math.abs(posicaoFinalY - posicaoAtualY);
 	}
 	
