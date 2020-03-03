@@ -17,5 +17,10 @@ public class MovimentoDireita extends MovimentoImp implements Movimento {
 		
 		return getNovoNo(noAtual, estadoMovimentado);
 	}
+
+	@Override
+	public boolean isPermitidoMovimento(Estado estado) {
+		return estado.posicaoVazia.posicaoFinalX + 1 > estado.pecas.length;
+	}
 	
 }

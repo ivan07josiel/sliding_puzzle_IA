@@ -9,11 +9,11 @@ public abstract class MovimentoImp implements Movimento {
 	protected int posY;
 	
 	public int getPosicaoVaziaX(Estado estado) {
-		return estado.posicaoVazia.posicaoAtualX;
+		return estado.posicaoVazia.posicaoFinalX;
 	}
 	
 	public int getPosicaoVaziaY(Estado estado) {
-		return estado.posicaoVazia.posicaoAtualY;
+		return estado.posicaoVazia.posicaoFinalY;
 	}
 	
 	protected void setPosicoes(Estado estado) {

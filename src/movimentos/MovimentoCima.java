@@ -17,5 +17,10 @@ public class MovimentoCima extends MovimentoImp implements Movimento {
 		
 		return getNovoNo(noAtual, estadoMovimentado);
 	}
+
+	@Override
+	public boolean isPermitidoMovimento(Estado estado) {
+		return estado.posicaoVazia.posicaoFinalY - 1 < 0;
+	}
 	
 }

@@ -1,5 +1,6 @@
 package movimentos;
 
+import sliding_puzzle_IA.Estado;
 import sliding_puzzle_IA.No;
 
 public interface Movimento {
@@ -9,4 +10,10 @@ public interface Movimento {
 	 * @return
 	 */
 	No mover(No noMovimentado);
+	
+	/**
+	 * Informa se o movimento é permitido para aquele estado
+	 * @return
+	 */
+	boolean isPermitidoMovimento(Estado estado);
 }
