@@ -25,8 +25,8 @@ public class Busca {
 	}
 	
 	private No getNoInicial(Estado estadoInicial) {
-		Estado antecessor = new Estado(null, new Peca[3][3], null);
-		return new No(antecessor, estadoInicial, 0);
+		Estado estadoRaiz = new Estado(null, new Peca[3][3], null);
+		return new No(null, estadoInicial, 0);
 	}
 
 	public void buscar(No no) {
@@ -53,8 +53,23 @@ public class Busca {
 		
 		for (Movimento acao : acoes) {
 			nosPossiveis.add(acao.mover(no));
+			imprimirEstado(nosPossiveis.get(nosPossiveis.size()-1).estado);
 		}
 		
 		nos.add(No.getMelhorNo(nosPossiveis));
+	}
+
+	private void imprimirEstado(Estado estado) {
+		System.out.println(estado.movimento);
+		for (int i = 0; i < estado.pecas.length; i++) {
+			for (int j = 0; j < estado.pecas.length; j++) {
+				String numero = estado.pecas[i][j].numero != null ? estado.pecas[i][j].numero.toString() : "-"; 
+				System.out.print(numero + "  ");;
+			}
+			System.out.println();
+		}
+		
+		System.out.println("\n\n");
+		
 	}
 }
