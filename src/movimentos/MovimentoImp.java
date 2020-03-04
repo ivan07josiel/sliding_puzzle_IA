@@ -29,15 +29,17 @@ public abstract class MovimentoImp implements Movimento {
 	 */
 	public void setEspacoVazio(int posicaoX, int posicaoY, Estado estado) {
 		Peca pecaVazia = Peca.getPecaVazia(posicaoX, posicaoY);
-		estado.pecas[posicaoX][posicaoY] = pecaVazia;
+		estado.pecas[posicaoY][posicaoX] = pecaVazia;
 		estado.posicaoVazia = pecaVazia;
 	}
 	
 	public void setNovaPosicaoPecaMovimentada(int posicaoX, int posicaoY, Estado estado, Peca peca) {
-		estado.pecas[posicaoX][posicaoY] = peca;
+		estado.pecas[posicaoY][posicaoX] = peca;
 	}
 	
 	public No getNovoNo(No noAtual, Estado estadoMovimentado) {
-		return new No(noAtual.estado, estadoMovimentado, ++noAtual.profundidade);
+		int novaProfundidade = noAtual.profundidade + 1;
+		return new No(noAtual, estadoMovimentado, novaProfundidade);
 	}
+	
 }

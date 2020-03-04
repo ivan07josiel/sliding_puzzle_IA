@@ -8,19 +8,24 @@ public class MovimentoDireita extends MovimentoImp implements Movimento {
 
 	@Override
 	public No mover(No noAtual) {
-		Estado estadoMovimentado = noAtual.estado.clone();
+		Estado estadoMovimentado = noAtual.estado.clone(this, noAtual.estado);
 		setPosicoes(noAtual.estado);
 		
-		setEspacoVazio(posX, posY-1, estadoMovimentado);
-		Peca pecaMovimentada = noAtual.estado.pecas[posX][posY-1];
+		setEspacoVazio(posX, posY+1, estadoMovimentado);
+		Peca pecaMovimentada = noAtual.estado.pecas[posY][posX+1];
 		setNovaPosicaoPecaMovimentada(posX, posY, estadoMovimentado, pecaMovimentada);
+		estadoMovimentado.atualizarDistanciaTotal();
 		
 		return getNovoNo(noAtual, estadoMovimentado);
 	}
 
 	@Override
 	public boolean isPermitidoMovimento(Estado estado) {
-		return estado.posicaoVazia.posicaoFinalX + 1 > estado.pecas.length;
+		return estado.posicaoVazia.posicaoFinalX + 1 < estado.pecas.length;
 	}
 	
+	@Override
+	public String toString() {
+		return "Movimento para direita";
+	}
 }

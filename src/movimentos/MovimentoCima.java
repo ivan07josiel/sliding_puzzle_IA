@@ -8,19 +8,24 @@ public class MovimentoCima extends MovimentoImp implements Movimento {
 
 	@Override
 	public No mover(No noAtual) {
-		Estado estadoMovimentado = noAtual.estado.clone();
+		Estado estadoMovimentado = noAtual.estado.clone(this, noAtual.estado);
 		setPosicoes(noAtual.estado);
 		
-		setEspacoVazio(posX, posY+1, estadoMovimentado);
-		Peca pecaMovimentada = noAtual.estado.pecas[posX][posY+1];
+		setEspacoVazio(posX, posY-1, estadoMovimentado);
+		Peca pecaMovimentada = noAtual.estado.pecas[posY-1][posX];
 		setNovaPosicaoPecaMovimentada(posX, posY, estadoMovimentado, pecaMovimentada);
+		estadoMovimentado.atualizarDistanciaTotal();
 		
 		return getNovoNo(noAtual, estadoMovimentado);
 	}
 
 	@Override
 	public boolean isPermitidoMovimento(Estado estado) {
-		return estado.posicaoVazia.posicaoFinalY - 1 < 0;
+		return estado.posicaoVazia.posicaoFinalY - 1 >= 0;
 	}
 	
+	@Override
+	public String toString() {
+		return "Movimento para cima";
+	}
 }
