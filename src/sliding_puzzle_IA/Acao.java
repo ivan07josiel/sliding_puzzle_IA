@@ -16,14 +16,12 @@ import movimentos.MovimentoEsquerda;
  *
  */
 public class Acao {
-	Peca pecaVazia;
 
 	public static No realizarMovimento(No no, Movimento movimento) {
 		return movimento.mover(no);
 	}
 	
 	public List<Movimento> getAcoesPossiveis(Estado estado) {
-		pecaVazia = estado.posicaoVazia;
 		List<Movimento> movimentos = new ArrayList<>();
 
 		if (isPermitidoMovimento(new MovimentoCima(), estado))
