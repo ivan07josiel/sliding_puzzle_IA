@@ -1,24 +1,32 @@
 package sliding_puzzle_IA;
 
+import movimentos.Movimento;
+
 /**
  * Classe que representa um estado do jogo
  * 
  * @author Ivan Josiel
  *
  */
-public class Estado implements Cloneable {
+public class Estado {
 	public int distanciaTotal;
-	public Acao acao;
+	public Movimento movimento;
 	public Peca pecas[][] = new Peca[3][3];
 	public Peca posicaoVazia;
 
-	public Estado(Acao acao, Peca[][] pecas, Peca posicaoVazia) {
-		this.acao = acao;
-		this.pecas = pecas;
+	public Estado(Movimento movimento, Peca[][] pecas, Peca posicaoVazia) {
+		this.movimento = movimento;
+		setPecas(pecas);
 		this.posicaoVazia = posicaoVazia;
 		this.distanciaTotal = getDistanciaTotal();
 	}
 
+	private void setPecas(Peca[][] pecas) {
+		for (int i = 0; i < pecas.length; i++) {
+			this.pecas[i] = pecas[i].clone();
+		}
+	}
+	
 	/**
 	 * Retorna a soma das distancias entre posição atual e posição final de cada
 	 * peça
@@ -35,6 +43,10 @@ public class Estado implements Cloneable {
 
 		return distanciaTotal;
 	}
+	
+	public void atualizarDistanciaTotal() {
+		this.distanciaTotal = getDistanciaTotal();
+	}
 
 	/**
 	 * Indica se o estado atual é igual ao estado objetivo
@@ -43,13 +55,7 @@ public class Estado implements Cloneable {
 		return getDistanciaTotal() == 0;
 	}
 
-	public Estado clone() {
-		try {
-			return (Estado) super.clone();
-		} catch (CloneNotSupportedException e) {
-			e.printStackTrace();
-		}
-
-		return null;
-	}
+    public Estado clone(Movimento movimento, Estado estado) {
+        return new Estado(movimento, estado.pecas, estado.posicaoVazia);
+    }
 }
