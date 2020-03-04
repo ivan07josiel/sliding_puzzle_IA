@@ -3,16 +3,22 @@ package sliding_puzzle_IA;
 import java.util.List;
 
 public class No {
-	public Estado estadoPai;
+	public No pai;
 	public Estado estado;
 	public int profundidade;
 	public int distanciaTotal;
 		
-	public No(Estado estadoPai, Estado estado, int profundidade) {
+	public No(No pai, Estado estado, int profundidade) {
 		super();
-		this.estadoPai = estadoPai;
+		this.pai = pai;
 		this.estado = estado;
 		this.profundidade = profundidade;
+		setDistanciaTotal(pai, estado);
+	}
+
+	private void setDistanciaTotal(No pai, Estado estado) {
+		int distanciaAntecessor = pai != null ? pai.distanciaTotal : 0; 
+		this.distanciaTotal = distanciaAntecessor + estado.distanciaTotal;
 	}
 
 	public static No getMelhorNo(List<No> nosPossiveis) {
