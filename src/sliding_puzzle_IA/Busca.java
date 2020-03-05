@@ -14,18 +14,20 @@ public class Busca {
 	public Busca(Estado estadoFinal) {
 		this.estadoFinal = estadoFinal;
 	}
-	
+
 	public void realizarBusca(Estado estadoInicial) {
-		
+
 		nos.add(getNoInicial(estadoInicial));
-		
+
 		while (!nos.isEmpty()) {
-			buscar(nos.remove(0));
+			No no = nos.remove(nos.size() - 1);
+			buscar(no);
 		}
+
+		imprimirSolucao();
 	}
-	
+
 	private No getNoInicial(Estado estadoInicial) {
-		Estado estadoRaiz = new Estado(null, new Peca[3][3], null);
 		return new No(null, estadoInicial, 0);
 	}
 
@@ -50,26 +52,55 @@ public class Busca {
 	private void expandirNos(No no) {
 		List<Movimento> acoes = new Acao().getAcoesPossiveis(no.estado);
 		List<No> nosPossiveis = new ArrayList<>();
-		
+
 		for (Movimento acao : acoes) {
-			nosPossiveis.add(acao.mover(no));
-			imprimirEstado(nosPossiveis.get(nosPossiveis.size()-1).estado);
+			if (isPossivelMovimentar(acao, no.estado)) {
+				nosPossiveis.add(acao.mover(no));
+				imprimirEstadoCabecalho(nosPossiveis.get(nosPossiveis.size() - 1));
+			}
 		}
-		
-		nos.add(No.getMelhorNo(nosPossiveis));
+
+		nos.addAll(No.getMelhoresNos(nosPossiveis));
 	}
 
-	private void imprimirEstado(Estado estado) {
-		System.out.println(estado.movimento);
-		for (int i = 0; i < estado.pecas.length; i++) {
-			for (int j = 0; j < estado.pecas.length; j++) {
-				String numero = estado.pecas[i][j].numero != null ? estado.pecas[i][j].numero.toString() : "-"; 
-				System.out.print(numero + "  ");;
+	private boolean isPossivelMovimentar(Movimento movimento, Estado estado) {
+		return movimento.isMovimentoValido(estado) && movimento.isPossivelMovimento(estado);
+	}
+
+	private void imprimirEstado(No no) {
+		for (int i = 0; i < no.estado.pecas.length; i++) {
+			for (int j = 0; j < no.estado.pecas.length; j++) {
+				String numero = no.estado.pecas[i][j].numero != null ? no.estado.pecas[i][j].numero.toString() : "-";
+				System.out.print(numero + "  ");
+				;
 			}
 			System.out.println();
 		}
-		
+
 		System.out.println("\n\n");
-		
+
+	}
+
+	private void imprimirEstadoCabecalho(No no) {
+		imprimirCabecalho(no);
+		imprimirEstado(no);
+	}
+
+	private void imprimirCabecalho(No no) {
+		System.out.println("Profundidade: " + no.profundidade);
+		System.out.println("Distância até o estado: " + no.distanciaTotal);
+		System.out.println("Distância Manhattan total do estado: " + no.estado.distanciaTotal);
+		System.out.println("Movimento executado: " + no.estado.movimento);
+		System.out.println("***************\n");
+	}
+
+	private void imprimirSolucao() {
+		System.out.println("\n******************************");
+		System.out.println("	SOLUÇÃO");
+		System.out.println("******************************");
+		System.out.println("Profundidade: " + solucao.profundidade);
+		System.out.println("Distância para solução: " + solucao.distanciaTotal);
+		System.out.println("***************\n");
+		imprimirEstado(solucao);
 	}
 }
