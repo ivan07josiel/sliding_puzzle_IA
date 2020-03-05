@@ -10,18 +10,29 @@ public class MovimentoEsquerda extends MovimentoImp implements Movimento {
 	public No mover(No noAtual) {
 		Estado estadoMovimentado = noAtual.estado.clone(this, noAtual.estado);
 		setPosicoes(noAtual.estado);
-		
-		setEspacoVazio(posX-1, posY, estadoMovimentado);
-		Peca pecaMovimentada = noAtual.estado.pecas[posY][posX-1];
+
+		setEspacoVazio(posX - 1, posY, estadoMovimentado);
+		Peca pecaMovimentada = noAtual.estado.pecas[posY][posX - 1];
 		setNovaPosicaoPecaMovimentada(posX, posY, estadoMovimentado, pecaMovimentada);
 		estadoMovimentado.atualizarDistanciaTotal();
-		
+
 		return getNovoNo(noAtual, estadoMovimentado);
 	}
 
 	@Override
 	public boolean isPermitidoMovimento(Estado estado) {
 		return estado.posicaoVazia.posicaoFinalX - 1 >= 0;
+	}
+
+	@Override
+	public boolean isMovimentoValido(Estado estado) {
+		return !(estado.movimento instanceof MovimentoDireita);
+	}
+
+	@Override
+	public boolean isPossivelMovimento(Estado estado) {
+		Peca livre = estado.posicaoVazia;
+		return estado.pecas[livre.posicaoFinalY][livre.posicaoFinalX - 1].isPecaPosicaoFinal();
 	}
 
 	@Override

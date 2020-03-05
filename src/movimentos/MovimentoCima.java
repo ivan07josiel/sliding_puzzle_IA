@@ -25,6 +25,17 @@ public class MovimentoCima extends MovimentoImp implements Movimento {
 	}
 	
 	@Override
+	public boolean isMovimentoValido(Estado estado) {		
+		return !(estado.movimento instanceof MovimentoBaixo);
+	}
+	
+	@Override
+	public boolean isPossivelMovimento(Estado estado) {
+		Peca livre = estado.posicaoVazia;
+		return estado.pecas[livre.posicaoFinalY-1][livre.posicaoFinalX].isPecaPosicaoFinal();
+	}
+	
+	@Override
 	public String toString() {
 		return "Movimento para cima";
 	}

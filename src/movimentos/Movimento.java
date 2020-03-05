@@ -16,4 +16,16 @@ public interface Movimento {
 	 * @return
 	 */
 	boolean isPermitidoMovimento(Estado estado);
+	
+	/**
+	 * Informa se o movimento é válido levando em conta que não é permitido realizar o 
+	 * movimento contrário ao executado anteriormente. EX: MovimentoCima -> MovimentoBaixo
+	 */
+	boolean isMovimentoValido(Estado estado);
+	
+	/**
+	 * Informa se o movimento é possível levando em conta que uma peça já posicionada em 
+	 * sua posição final não pode ser movimentada
+	 */
+	boolean isPossivelMovimento(Estado estado);
 }
