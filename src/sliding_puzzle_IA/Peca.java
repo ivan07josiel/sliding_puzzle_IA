@@ -50,6 +50,14 @@ public class Peca {
 	private int projecaoLinhaY(int posicaoAtualY) {
 		return Math.abs(posicaoFinalY - posicaoAtualY);
 	}
+
+	/**
+	 * Informa se a peça está em sua posição final
+	 * @return
+	 */
+	public boolean isPecaPosicaoFinal() {
+		return this.distancia != 0 ? true : false;
+	}
 	
 	
 
