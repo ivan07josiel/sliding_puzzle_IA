@@ -10,6 +10,7 @@ import movimentos.Movimento;
  */
 public class Estado {
 	public int distanciaTotal;
+	public int pecasForaLugar;
 	public Movimento movimento;
 	public Peca pecas[][] = new Peca[3][3];
 	public Peca posicaoVazia;
@@ -19,12 +20,28 @@ public class Estado {
 		setPecas(pecas);
 		this.posicaoVazia = posicaoVazia;
 		this.distanciaTotal = getDistanciaTotal();
+		this.pecasForaLugar = getPecasForaLugar();
 	}
 
 	private void setPecas(Peca[][] pecas) {
 		for (int i = 0; i < pecas.length; i++) {
 			this.pecas[i] = pecas[i].clone();
 		}
+	}
+	
+	public int getPecasForaLugar() {
+		pecasForaLugar = 0;
+		
+		for (int i = 0; i < pecas.length; i++) {
+			for (int j = 0; j < pecas[i].length; j++) {
+				Peca peca = pecas[i][j];
+				if (peca != null) {
+					distanciaTotal += peca.isPecaPosicaoFinal() ? 0 : 1;
+				}
+			}
+		}
+
+		return pecasForaLugar;
 	}
 	
 	/**
@@ -37,7 +54,10 @@ public class Estado {
 		for (int i = 0; i < pecas.length; i++) {
 			for (int j = 0; j < pecas[i].length; j++) {
 				Peca peca = pecas[i][j];
-				distanciaTotal += peca != null ? peca.getDistancia(j, i) : 0;
+				if (peca != null) {
+					peca.setDistancia(j, i);
+					distanciaTotal += peca.distancia;
+				}
 			}
 		}
 
