@@ -1,5 +1,7 @@
 package sliding_puzzle_IA;
 
+import java.util.Arrays;
+
 import movimentos.Movimento;
 
 /**
@@ -54,7 +56,7 @@ public class Estado {
 		for (int i = 0; i < pecas.length; i++) {
 			for (int j = 0; j < pecas[i].length; j++) {
 				Peca peca = pecas[i][j];
-				if (peca != null) {
+				if (peca != null && peca.numero != null) {
 					peca.setDistancia(j, i);
 					distanciaTotal += peca.distancia;
 				}
@@ -78,4 +80,28 @@ public class Estado {
     public Estado clone(Movimento movimento, Estado estado) {
         return new Estado(movimento, estado.pecas, estado.posicaoVazia);
     }
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Arrays.deepHashCode(pecas);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Estado other = (Estado) obj;
+		if (!Arrays.deepEquals(pecas, other.pecas))
+			return false;
+		return true;
+	}
+    
+    
 }

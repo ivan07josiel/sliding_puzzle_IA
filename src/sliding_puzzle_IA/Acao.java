@@ -16,10 +16,6 @@ import movimentos.MovimentoEsquerda;
  *
  */
 public class Acao {
-
-	public static No realizarMovimento(No no, Movimento movimento) {
-		return movimento.mover(no);
-	}
 	
 	public List<Movimento> getAcoesPossiveis(Estado estado) {
 		List<Movimento> movimentos = new ArrayList<>();

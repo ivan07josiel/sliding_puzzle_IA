@@ -7,7 +7,7 @@ import sliding_puzzle_IA.Peca;
 public class MovimentoCima extends MovimentoImp implements Movimento {
 
 	@Override
-	public No mover(No noAtual) {
+	public Estado mover(No noAtual) {
 		Estado estadoMovimentado = noAtual.estado.clone(this, noAtual.estado);
 		setPosicoes(noAtual.estado);
 		
@@ -16,7 +16,7 @@ public class MovimentoCima extends MovimentoImp implements Movimento {
 		setNovaPosicaoPecaMovimentada(posX, posY, estadoMovimentado, pecaMovimentada);
 		estadoMovimentado.atualizarDistanciaTotal();
 		
-		return getNovoNo(noAtual, estadoMovimentado);
+		return estadoMovimentado;
 	}
 
 	@Override
@@ -29,11 +29,6 @@ public class MovimentoCima extends MovimentoImp implements Movimento {
 		return !(estado.movimento instanceof MovimentoBaixo);
 	}
 	
-	@Override
-	public boolean isPossivelMovimento(Estado estado) {
-		Peca livre = estado.posicaoVazia;
-		return estado.pecas[livre.posicaoFinalY-1][livre.posicaoFinalX].isPecaPosicaoFinal();
-	}
 	
 	@Override
 	public String toString() {

@@ -9,7 +9,7 @@ public interface Movimento {
 	 * @param noMovimentado
 	 * @return
 	 */
-	No mover(No noMovimentado);
+	Estado mover(No noMovimentado);
 	
 	/**
 	 * Informa se o movimento é permitido para aquele estado
@@ -23,9 +23,4 @@ public interface Movimento {
 	 */
 	boolean isMovimentoValido(Estado estado);
 	
-	/**
-	 * Informa se o movimento é possível levando em conta que uma peça já posicionada em 
-	 * sua posição final não pode ser movimentada
-	 */
-	boolean isPossivelMovimento(Estado estado);
 }
